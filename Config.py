@@ -1,0 +1,5 @@
+HOST = "localhost"
+USER = "root"
+PASSWORD = "root123"
+DATABASE = "todo_db"
+SECRET_KEY = "todo@secret#123"
