@@ -1,9 +1,10 @@
 import mysql.connector
+import Config
 conn=mysql.connector.connect(
-    host="localhost",
-    user='root',
-    password='root123',
-    database="todo_db"
+    host=Config.HOST,
+    user=Config.USER,
+    password=Config.PASSWORD,
+    database=Config.DATABASE
 )
 cursor=conn.cursor()
 cursor.execute("""Create table  if not exists groceries_users(
