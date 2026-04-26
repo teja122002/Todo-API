@@ -2,12 +2,7 @@ from flask import Blueprint,request,jsonify
 import Config
 import jwt
 import mysql.connector
-conn=mysql.connector.connect(
-    host=Config.HOST,
-    user=Config.USER,
-    password=Config.PASSWORD,
-    database=Config.DATABASE
-    )
+
 todo=Blueprint('todo',__name__)
 def verify_token():
     token=request.headers.get('Authorization')
@@ -32,6 +27,12 @@ def get_todo():
 #Add todo
 @todo.route('/add',methods=['POST'])
 def add_todo():
+    conn=mysql.connector.connect(
+    host=Config.HOST,
+    user=Config.USER,
+    password=Config.PASSWORD,
+    database=Config.DATABASE
+    )
     user_id=verify_token()
     data=request.get_json()
     title=data.get('title')
@@ -45,6 +46,12 @@ def add_todo():
 #update todo
 @todo.route('/put/todo/<id>',methods=['PUT'])
 def update(id):
+    conn=mysql.connector.connect(
+    host=Config.HOST,
+    user=Config.USER,
+    password=Config.PASSWORD,
+    database=Config.DATABASE
+    )
     user_id=verify_token()
     if not user_id:
         return jsonify({"Message":"User not found"})
@@ -57,6 +64,12 @@ def update(id):
     return jsonify({"Message":"title has updated"})
 @todo.route('/delete/todo/<id>',methods=['DELETE'])
 def delete(id):
+    conn=mysql.connector.connect(
+    host=Config.HOST,
+    user=Config.USER,
+    password=Config.PASSWORD,
+    database=Config.DATABASE
+    )
     user_id=verify_token()
     if not user_id:
         return jsonify({'Message':"User not found"})

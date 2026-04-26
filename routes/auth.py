@@ -4,15 +4,16 @@ import mysql.connector
 import Config
 import jwt
 import datetime
-conn=mysql.connector.connect(
+
+auth=Blueprint('auth',__name__)
+@auth.route('/register',methods=['POST'])
+def get_user():
+    conn=mysql.connector.connect(
     host=Config.HOST,
     user=Config.USER,
     password=Config.PASSWORD,
     database=Config.DATABASE
-)
-auth=Blueprint('auth',__name__)
-@auth.route('/register',methods=['POST'])
-def get_user():
+    )
     data=request.get_json() 
     user_name=data['name']
     password=data['password']
@@ -26,6 +27,12 @@ def get_user():
     return jsonify({"Message":"User has added"}),201
 @auth.route('/login',methods=['POST'])
 def login_user():
+    conn=mysql.connector.connect(
+    host=Config.HOST,
+    user=Config.USER,
+    password=Config.PASSWORD,
+    database=Config.DATABASE
+    )
     data=request.get_json()
     user_name=data["name"]
     password=data['password']
