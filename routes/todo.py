@@ -19,6 +19,12 @@ def get_todo():
     user_id=verify_token()
     if not user_id:
         return jsonify({"Message":"Token not found"}),401
+    conn=mysql.connector.connect(
+    host=Config.HOST,
+    user=Config.USER,
+    password=Config.PASSWORD,
+    database=Config.DATABASE
+    )
     cursor=conn.cursor()
     cursor.execute("select * from todo where user_id=%s",(user_id,))
     todos = cursor.fetchall()
